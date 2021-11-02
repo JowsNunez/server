@@ -35,6 +35,7 @@ public class Servidor {
             while(true){
                     //Cuando un jugador se conecte guardamos el socket en nuestra lista
                     Socket cliente = servidor.accept();
+                    System.out.println("[Cliente aceptado]: " + cliente.getInetAddress());
                     //Se agrega el socket a la lista
                     usuarios.add(cliente);
                     //Se le genera un turno X o O 
