@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class Servidor {
     //Inicializamos el puerto
-    private final int puerto = 80;
+    private final int puerto = 5000;
     //Numero maximo de conexiones (el tictactoe es un juego para 2)
     private final int noConexiones = 2;
     //Creamos una lista de sockets para guardar el socket de cada jugador
