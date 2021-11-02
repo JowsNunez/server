@@ -6,7 +6,7 @@ import java.util.LinkedList;
 
 public class Servidor {
     //Inicializamos el puerto
-    private final int puerto = 2027;
+    private final int puerto = 443;
     //Numero maximo de conexiones (el tictactoe es un juego para 2)
     private final int noConexiones = 2;
     //Creamos una lista de sockets para guardar el socket de cada jugador
@@ -29,8 +29,9 @@ public class Servidor {
             }
             //Creamos el socket servidor
             ServerSocket servidor = new ServerSocket(puerto,noConexiones);
+            servidor.getLocalPort();
             //Ciclo infinito para estar escuchando por nuevos jugadores
-            System.out.println("Esperando jugadores....");
+            System.out.println("Esperando jugadores...." );
             while(true){
                     //Cuando un jugador se conecte guardamos el socket en nuestra lista
                     Socket cliente = servidor.accept();
