@@ -4,6 +4,7 @@ package com.mycompany.server;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -26,6 +27,8 @@ public class HiloServidor implements Runnable{
     
     //Constructor que recibe el socket que atendera el hilo y la lista de los jugadores el turno y la matriz del juego
     public HiloServidor(Socket soc,LinkedList users,int xo,int[][] Gato){
+        
+        
         socket = soc;
         usuarios = users;
         XO = xo;
@@ -163,4 +166,6 @@ public class HiloServidor implements Runnable{
                 }
         }
     }
+    
+
 }

@@ -1,7 +1,9 @@
 package com.mycompany.server;
 
+import java.io.DataOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public class Servidor {
@@ -34,10 +36,18 @@ public class Servidor {
             System.out.println("Esperando jugadores...." );
             while(true){
                     //Cuando un jugador se conecte guardamos el socket en nuestra lista
-                    Socket cliente = servidor.accept();
-                    System.out.println("[Cliente aceptado]: " + cliente.getInetAddress());
+
+                    if(isConnected(servidor.accept())){
+                          DataOutputStream out = new DataOutputStream(servidor.accept().getOutputStream());
+                          out.writeUTF("[Cliente Conectado]");
+                    }else{
+                        Socket cliente = servidor.accept();
+                         System.out.println("[Cliente aceptado]: " + cliente.getInetAddress());
                     //Se agrega el socket a la lista
                     usuarios.add(cliente);
+                   
+                    
+                   
                     //Se le genera un turno X o O 
                     int xo = turnos % 2 == 0 ? 1 : 0;
                     turnos++;
@@ -45,6 +55,7 @@ public class Servidor {
                     Runnable  run = new HiloServidor(cliente,usuarios,xo,G);
                     Thread hilo = new Thread(run);
                     hilo.start();
+                     }
             }
         }catch (Exception e) {
             e.printStackTrace();
@@ -56,4 +67,17 @@ public class Servidor {
         Servidor servidor= new Servidor();
         servidor.escuchar();
     }
+    
+       public boolean isConnected(Socket client){
+         for (Iterator<Socket> iterator = usuarios.iterator(); iterator.hasNext();) {
+           Socket next = iterator.next();
+           if(next.getInetAddress().equals(client.getInetAddress())){
+               return true;
+           }
+           
+       }
+         return false;
+   }
+    
+    
 }
